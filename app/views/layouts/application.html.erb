@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BookReview</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+          <div class="navar-header">
+              <%= link_to "Book Review", root_path, class: "navbar-brand" %>
+          </div>
+          <ul class="nav navbar-nav">
+              <li><%= link_to "Sign Up", new_user_registration_path %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Log In", new_user_session_path %></li>
+              <% end %>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right"> <!--float-->
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <% Category.all.each do |category| %>
+                      <li class="<%= 'active' if params[:category] == category.name %>">
+                        <%= link_to category.name, books_path(category: category.name), class: "link" %> <!--to index page-pass param-->
+                      </li>
+                    <% end %>
+                  </ul>
+              </li>
+
+              <% if user_signed_in? %>
+                <li><%= link_to "Add Book", new_book_path %></li>
+              <% end %>
+          </ul>
+
+      </div>
+    </nav>
+
+
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <div class="container">
+      <%= yield %>   <%# <=====all views I created will be insulted here %>
+    </div>
+  </body>
+</html>

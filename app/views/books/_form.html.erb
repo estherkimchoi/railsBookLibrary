@@ -1,0 +1,10 @@
+<%# This will generate an entire form with labels for user name and password as well,
+and render errors by default when I render the form with invalid data %>
+<%= simple_form_for @book, :html => { :multipart => true } do |f| %>
+  <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a category") %>   <!-- <=dropdown // @categories represent all the categories I have-->
+  <%= f.file_field :book_img %>
+  <%= f.input :title, label: "Book Title" %>
+  <%= f.input :description %>
+  <%= f.input :author%>
+  <%= f.button :submit %>
+<% end %>

@@ -1,0 +1,33 @@
+<div class = "row">
+  <div class="col-md-4">
+  <%= image_tag @book.book_img, class:"book-show" %>
+  </div>
+  <div class="col-md-8">
+    <h2><%= @book.title %></h2>
+    <h3><%= @book.author %></h3>
+    <h4>Category: <%= @book.category.name %></h4>
+    <p><%= @book.description %></p>
+  </div>
+</div>
+
+<div class = "row">
+    <div class ="col-md-4">
+        <!--review partial will display here/ratings-->
+        <%= render @book.reviews %>
+        <div>
+          <%= link_to "Add Review", new_book_review_path(@book) %> <!-@book is a current book--->
+        </div>
+
+    </div>
+
+</div>
+
+
+<%= link_to "Back", root_path(@book) %> <!--여기서 @book빼면 어떻게 되는지 확인하기!-->
+
+<% if user_signed_in? %>
+  <% if @book.user_id == current_user.id %>       <%#  <= User can delete and edit only the book they created. so edit and delete will not appear%>
+    <%= link_to "Edit", edit_book_path(@book) %>
+    <%= link_to "Delete", book_path(@book), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
+<% end %>

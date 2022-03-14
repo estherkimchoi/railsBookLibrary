@@ -1,0 +1,7 @@
+<!--it will be rendered in books->show.html.erb-->
+<p><%= review.rating %></p>
+<p><%= review.comment %></p>
+
+<!--Each review will have edit and delete link-->
+<%= link_to "Edit", edit_book_review_path(review.book, review) %> <!--review.book is for accecc current book-->
+<%= link_to "Delete", book_review_path(review.book, review), method: :delete, data: { confirm: "Are you sure?" } %>

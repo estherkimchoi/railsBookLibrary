@@ -1,0 +1,23 @@
+<!-- display category name -->
+<h1 class="current-category"><%= params[:category] %></h1>
+
+<% if @books.count == 0 %>
+  <h1>There are no books in that category</h1>
+<% else %>
+
+  <div class ="row">
+      <%= @books.each do |book| %>   <%# It will loop through all books defined in index action of books controller  %>
+        <!--display all the book title // made the title text clickable adding link_to %>-->
+        <!-- <h2><%= link_to book.title, book_path(book) %></h2> -->
+
+      <div class = "col-md-3">
+        <a href="/books/<%= book.id %>">  <!--link image_tag to show page. show page url: /books/id-->
+          <%# <%= image_tag book.book_img.url(:book_index) %> <!--book_index is size of the image-->
+          <% if book.book_img.attached? %>
+            <%= image_tag book.book_img, class:"book" %>
+          <% end %>
+        </a>
+      </div>
+      <% end %>
+   </div>
+<% end %>
